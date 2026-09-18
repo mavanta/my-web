@@ -3,18 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Đặc Biệt:>></title>
+<title>Website</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html,
-body {
+html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -24,689 +18,506 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #241b42 0%,
-            #100c22 45%,
-            #05040d 100%
-        );
-
-    font-family: Arial, sans-serif;
+    background: #0a0a1a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    position: relative;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
+.bg-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 45%, #241b42 0%, #100c22 45%, #05040d 100%);
+}
 
 .stars {
     position: fixed;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .star {
     position: absolute;
-
-    width: 3px;
-    height: 3px;
-
     border-radius: 50%;
-
     background: white;
-
-    box-shadow:
-        0 0 8px white,
-        0 0 18px #ff8fd0;
-
+    box-shadow: 0 0 8px white, 0 0 18px #ff8fd0;
     animation: twinkle 3s infinite ease-in-out;
 }
 
 @keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: .15;
-        transform: scale(.6);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.4);
-    }
+    0%, 100% { opacity: .15; transform: scale(.6); }
+    50%      { opacity: 1;   transform: scale(1.4); }
 }
-
-/* =========================
-   STAGE
-========================= */
 
 .stage {
     position: relative;
-
-    width: min(90vw, 90vh);
-    height: min(90vw, 90vh);
-
-    max-width: 700px;
-    max-height: 700px;
+    z-index: 5;
+    width: min(92vw, 92vh);
+    height: min(92vw, 92vh);
+    max-width: 720px;
+    max-height: 720px;
 }
-
-/* =========================
-   BUTTON
-========================= */
 
 .start {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     transform: translate(-50%, -50%);
-
+    z-index: 30;
     padding: 18px 45px;
-
     border-radius: 999px;
-
     border: 1px solid rgba(255, 180, 225, .8);
-
     background: rgba(255, 120, 190, .12);
-
     color: white;
-
     font-size: clamp(18px, 4vw, 26px);
-
     letter-spacing: 2px;
-
     cursor: pointer;
-
     backdrop-filter: blur(10px);
-
+    -webkit-backdrop-filter: blur(10px);
     box-shadow:
         0 0 25px rgba(255, 100, 190, .3),
         inset 0 0 20px rgba(255, 150, 220, .08);
-
-    transition:
-        transform .3s,
-        box-shadow .3s,
-        opacity .8s;
+    transition: transform .3s, box-shadow .3s, opacity .8s;
 }
 
 .start:hover {
-
-    transform:
-        translate(-50%, -50%)
-        scale(1.06);
-
-    box-shadow:
-        0 0 45px rgba(255, 100, 200, .65);
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 0 45px rgba(255, 100, 200, .65);
 }
 
 .start.hide {
-
     animation: buttonDisappear 1s forwards;
+    pointer-events: none;
 }
 
 @keyframes buttonDisappear {
-
-    0% {
-        opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            scale(1);
-    }
-
-    50% {
-        opacity: .7;
-        transform:
-            translate(-50%, -50%)
-            scale(1.25);
-    }
-
-    100% {
-        opacity: 0;
-        transform:
-            translate(-50%, -50%)
-            scale(.15);
-    }
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    50%  { opacity: .7; transform: translate(-50%, -50%) scale(1.25); }
+    100% { opacity: 0;  transform: translate(-50%, -50%) scale(.15); }
 }
 
-/* =========================
-   T
-========================= */
-
+/* Chữ T - sẽ được đặt nằm gọn trong lòng trái tim */
 .letter {
-
     position: absolute;
-
     left: 50%;
     top: 50%;
-
-    transform:
-        translate(-50%, -50%)
-        scale(.2);
-
+    transform: translate(-50%, -50%) scale(.2);
     opacity: 0;
-
     z-index: 10;
-
-    font-size: clamp(120px, 28vw, 190px);
-
+    font-size: clamp(90px, 20vw, 150px);
     font-weight: 300;
-
     color: white;
-
     text-shadow:
         0 0 15px #fff,
         0 0 40px #ff8bc9,
         0 0 90px #9b6cff;
-
-    transition:
-        opacity 1s,
-        transform 1.1s cubic-bezier(.2, 1.5, .3, 1);
+    transition: opacity 1s, transform 1.1s cubic-bezier(.2, 1.5, .3, 1);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
 }
 
 .letter.show {
-
     opacity: 1;
-
-    transform:
-        translate(-50%, -50%)
-        scale(1);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .letter.float {
-
     animation: floatT 4s infinite ease-in-out;
 }
 
 @keyframes floatT {
-
-    0%,
-    100% {
-        margin-top: 0;
-    }
-
-    50% {
-        margin-top: -8px;
-    }
+    0%, 100% { margin-top: 0; }
+    50%      { margin-top: -8px; }
 }
 
-/* =========================
-   SVG
-========================= */
-
-svg {
-
+#fx {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
-    overflow: visible;
-}
-
-/* =========================
-   RIBBONS
-========================= */
-
-.ribbon {
-
-    fill: none;
-
-    stroke-linecap: round;
-    stroke-linejoin: round;
-
-    opacity: 0;
-
-    filter:
-        drop-shadow(0 0 7px #ff7fc5)
-        drop-shadow(0 0 20px #a66cff);
-}
-
-.left {
-
-    stroke: #ff7fbd;
-
-    stroke-width: 8;
-}
-
-.right {
-
-    stroke: #b17cff;
-
-    stroke-width: 8;
-}
-
-/* =========================
-   HEART GLOW
-========================= */
-
-.heartGlow {
-
-    fill: none;
-
-    stroke: white;
-
-    stroke-width: 2;
-
-    opacity: 0;
-
-    filter:
-        drop-shadow(0 0 10px #ff7fc5)
-        drop-shadow(0 0 30px #a66cff);
-}
-
-/* =========================
-   PARTICLES
-========================= */
-
-.particle {
-
-    position: absolute;
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: white;
-
-    box-shadow:
-        0 0 8px #ff9ed5,
-        0 0 18px #b58aff;
-
+    z-index: 8;
     pointer-events: none;
-
-    opacity: 0;
-}
-
-/* =========================
-   FINAL HEART ANIMATION
-========================= */
-
-.heartDone {
-
-    animation:
-        heartBreath 3s infinite ease-in-out;
-}
-
-@keyframes heartBreath {
-
-    0%,
-    100% {
-        filter:
-            drop-shadow(0 0 8px #ff6fb5)
-            drop-shadow(0 0 20px #8c63ff);
-    }
-
-    50% {
-        filter:
-            drop-shadow(0 0 20px #ff6fb5)
-            drop-shadow(0 0 45px #a477ff);
-    }
-}
-
-/* mobile */
-
-@media(max-width:500px) {
-
-    .left,
-    .right {
-        stroke-width: 6;
-    }
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-gradient"></div>
 <div class="stars" id="stars"></div>
 
 <div class="stage">
-
-    <button class="start" id="start">
-        Bấm vào đây
-    </button>
-
-    <div class="letter" id="letter">
-        T
-    </div>
-
-    <svg
-        viewBox="0 0 700 700"
-        preserveAspectRatio="xMidYMid meet"
-    >
-
-        <!--
-            LEFT RIBBON
-
-            Starts under T
-            → flies down-left
-            → sweeps outside
-            → flies upward
-            → curves toward center
-        -->
-
-        <path
-            id="leftRibbon"
-            class="ribbon left"
-            d="
-            M350 470
-
-            C300 500 245 520 185 485
-
-            C115 445 80 365 110 280
-
-            C135 205 205 145 280 150
-
-            C325 153 345 180 350 215
-            "
-        />
-
-        <!-- RIGHT -->
-
-        <path
-            id="rightRibbon"
-            class="ribbon right"
-            d="
-            M350 470
-
-            C400 500 455 520 515 485
-
-            C585 445 620 365 590 280
-
-            C565 205 495 145 420 150
-
-            C375 153 355 180 350 215
-            "
-        />
-
-        <!-- final heart outline -->
-
-        <path
-            id="heart"
-            class="heartGlow"
-            d="
-            M350 215
-
-            C320 165 235 130 175 190
-
-            C95 270 150 390 350 535
-
-            C550 390 605 270 525 190
-
-            C465 130 380 165 350 215
-            "
-        />
-
-    </svg>
-
-    <div id="particles"></div>
-
+    <button class="start" id="start" type="button">Bấm đây ikk:>></button>
+    <div class="letter" id="letter">T</div>
+    <canvas id="fx"></canvas>
 </div>
 
-
 <script>
-
-/* =====================================================
-   STARS
-===================================================== */
-
+/* ===== STARS ===== */
 const stars = document.getElementById("stars");
-
 for (let i = 0; i < 90; i++) {
-
-    const star = document.createElement("div");
-
-    star.className = "star";
-
+    const s = document.createElement("div");
+    s.className = "star";
     const size = Math.random() * 3 + 1;
-
-    star.style.width = size + "px";
-    star.style.height = size + "px";
-
-    star.style.left =
-        Math.random() * 100 + "%";
-
-    star.style.top =
-        Math.random() * 100 + "%";
-
-    star.style.animationDelay =
-        Math.random() * 4 + "s";
-
-    stars.appendChild(star);
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.animationDelay = Math.random() * 4 + "s";
+    stars.appendChild(s);
 }
 
+/* ===== CANVAS ===== */
+const canvas = document.getElementById("fx");
+const ctx = canvas.getContext("2d");
+let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+let cx = 0, cy = 0;
+let heartScale = 0;     // bán kính trái tim (px)
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* Kích thước chữ T hiện tại (đo từ DOM) để scale trái tim cho vừa */
+let letterBox = { w: 0, h: 0 };
 
-const button =
-    document.getElementById("start");
-
-const letter =
-    document.getElementById("letter");
-
-const left =
-    document.getElementById("leftRibbon");
-
-const right =
-    document.getElementById("rightRibbon");
-
-const heart =
-    document.getElementById("heart");
-
-const particles =
-    document.getElementById("particles");
-
-
-let started = false;
-
-
-/* =====================================================
-   DRAW RIBBON
-===================================================== */
-
-function preparePath(path) {
-
-    const length =
-        path.getTotalLength();
-
-    path.style.strokeDasharray =
-        length;
-
-    path.style.strokeDashoffset =
-        length;
-
-    return length;
+function measureLetter() {
+    const letter = document.getElementById("letter");
+    // Đo ở scale 1 tạm thời
+    const prev = letter.style.transform;
+    letter.style.transform = "translate(-50%, -50%) scale(1)";
+    const r = letter.getBoundingClientRect();
+    const stageRect = document.querySelector(".stage").getBoundingClientRect();
+    letterBox.w = r.width;
+    letterBox.h = r.height;
+    letter.style.transform = prev;
+    // Lưu lại stage rect để tính toán
+    return stageRect;
 }
 
+function resizeCanvas() {
+    const stage = document.querySelector(".stage");
+    const rect = stage.getBoundingClientRect();
+    W = rect.width;
+    H = rect.height;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx = W / 2;
+    cy = H / 2;
+
+    // Đo chữ T sau khi layout ổn định
+    const letter = document.getElementById("letter");
+    const prev = letter.style.transform;
+    letter.style.transform = "translate(-50%, -50%) scale(1)";
+    const lr = letter.getBoundingClientRect();
+    letterBox.w = lr.width;
+    letterBox.h = lr.height;
+    letter.style.transform = prev;
+
+    /*
+       Trái tim có kích thước dựa trên công thức:
+         x ∈ [-1, 1]  (đã chia 17)
+         y ∈ [-1, 1]
+       Vậy bề rộng trái tim = 2 * heartScale.
+       Để chữ T nằm gọn trong lòng trái tim,
+       bề rộng trái tim phải >= letterBox.w * 1.5
+       và chiều cao >= letterBox.h * 2.2 (vì trái tim dài theo trục y)
+    */
+    const needW = letterBox.w * 1.6;
+    const needH = letterBox.h * 2.4;
+    heartScale = Math.max(needW / 2, needH / 2, Math.min(W, H) * 0.28);
+}
 
 /* =====================================================
-   CREATE FLOATING PARTICLES
+   CÔNG THỨC TRÁI TIM ĐỐI XỨNG
 ===================================================== */
+function heartPoint(t, scale) {
+    const x = 16 * Math.pow(Math.sin(t), 3);
+    const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t)
+                - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+    return {
+        x: cx + (x / 17) * scale,
+        y: cy + (y / 17) * scale
+    };
+}
 
-function createParticles() {
+/* =====================================================
+   TRẠNG THÁI
+===================================================== */
+let state = {
+    running: false,
+    startTime: 0,
+    phase: "idle",        // "burning" | "heart"
+    burnProgress: 0,      // 0 → 1: tiến độ cháy dây TNT
+    heartProgress: 0,
+    heartAlpha: 0,
+    heartDir: 1,
+    heartHold: 0,
+    trails: [[], []]     // 2 vệt cháy
+};
 
-    for (let i = 0; i < 25; i++) {
+/* =====================================================
+   VẼ DÂY TNT ĐANG CHÁY
+   - Dây là 1 đường dày cháy dần dọc theo nét trái tim
+   - Đầu cháy: đốm sáng trắng + tia lửa bắn ra
+   - Thân dây đã cháy: đường mảnh phát sáng màu hồng/tím
+===================================================== */
+function drawBurningRibbon(pts, progress, hue, alpha) {
+    if (progress <= 0 || pts.length < 2) return;
 
-        const p =
-            document.createElement("div");
+    const total = pts.length - 1;
+    const headIdx = Math.floor(total * progress);
 
-        p.className =
-            "particle";
+    /* --- 1. Vẽ thân dây đã cháy (đường cong sáng) --- */
+    ctx.beginPath();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
-        p.style.left =
-            (25 + Math.random() * 50) + "%";
+    for (let i = 0; i <= headIdx; i++) {
+        const p = pts[i];
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else {
+            const prev = pts[i - 1];
+            const mx = (prev.x + p.x) / 2;
+            const my = (prev.y + p.y) / 2;
+            ctx.quadraticCurveTo(prev.x, prev.y, mx, my);
+        }
+    }
 
-        p.style.top =
-            (25 + Math.random() * 50) + "%";
+    const head = pts[headIdx];
+    const tail = pts[0];
+    const grad = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
+    grad.addColorStop(0, `hsla(${hue}, 100%, 70%, ${0.15 * alpha})`);
+    grad.addColorStop(0.7, `hsla(${hue + 15}, 100%, 75%, ${0.7 * alpha})`);
+    grad.addColorStop(1, `hsla(${hue + 30}, 100%, 85%, ${alpha})`);
 
-        particles.appendChild(p);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 2.5;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = `hsla(${hue + 20}, 100%, 70%, ${alpha})`;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
 
-        setTimeout(() => {
+    /* --- 2. Đầu cháy: đốm sáng trắng --- */
+    const g = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 20);
+    g.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+    g.addColorStop(0.3, `hsla(${hue + 30}, 100%, 85%, ${0.9 * alpha})`);
+    g.addColorStop(0.7, `hsla(${hue + 20}, 100%, 65%, ${0.4 * alpha})`);
+    g.addColorStop(1, `hsla(${hue}, 100%, 60%, 0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(head.x, head.y, 20, 0, Math.PI * 2);
+    ctx.fill();
 
-            p.animate(
+    /* --- 3. Tia lửa bắn ra từ đầu cháy (giống ngòi TNT) --- */
+    const sparkCount = 8;
+    for (let k = 0; k < sparkCount; k++) {
+        const ang = Math.random() * Math.PI * 2;
+        const dist = 4 + Math.random() * 22;
+        const px = head.x + Math.cos(ang) * dist;
+        const py = head.y + Math.sin(ang) * dist;
+        const r = 1 + Math.random() * 2;
+        const spAlpha = (1 - dist / 26) * alpha;
 
-                [
-                    {
-                        opacity: 0,
-                        transform:
-                            "translate(0, 0) scale(.4)"
-                    },
-
-                    {
-                        opacity: 1,
-                        transform:
-                            "translate(0, -20px) scale(1)"
-                    },
-
-                    {
-                        opacity: 0,
-                        transform:
-                            `translate(
-                                ${(Math.random()-.5)*100}px,
-                                -${40+Math.random()*60}px
-                            )
-                            scale(.2)`
-                    }
-                ],
-
-                {
-                    duration:
-                        1800 + Math.random()*1800,
-
-                    delay:
-                        Math.random()*1000,
-
-                    iterations:
-                        Infinity
-                }
-
-            );
-
-        }, 100);
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${hue + 40}, 100%, ${85 + Math.random() * 15}%, ${spAlpha})`;
+        ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 
+/* =====================================================
+   VẼ TRÁI TIM (chỉ nét, không tô)
+===================================================== */
+function drawHeartOutline(pts, progress, alpha) {
+    if (alpha <= 0.01 || progress <= 0) return;
+
+    const total = pts.length - 1;
+    const visible = Math.floor(total * Math.min(progress, 1));
+
+    for (let layer = 0; layer < 4; layer++) {
+        const widthMul = [10, 5, 2.5, 1.2][layer];
+        const alphaMul = [0.08, 0.2, 0.5, 1][layer];
+
+        ctx.beginPath();
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        for (let i = 0; i <= visible; i++) {
+            const p = pts[i];
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else {
+                const prev = pts[i - 1];
+                const mx = (prev.x + p.x) / 2;
+                const my = (prev.y + p.y) / 2;
+                ctx.quadraticCurveTo(prev.x, prev.y, mx, my);
+            }
+        }
+
+        const grad = ctx.createLinearGradient(
+            cx - heartScale, cy - heartScale,
+            cx + heartScale, cy + heartScale
+        );
+        grad.addColorStop(0,   `hsla(330, 100%, 75%, ${alphaMul * alpha})`);
+        grad.addColorStop(0.5, `hsla(305, 100%, 72%, ${alphaMul * alpha})`);
+        grad.addColorStop(1,   `hsla(275, 100%, 72%, ${alphaMul * alpha})`);
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = widthMul;
+        ctx.stroke();
+    }
+
+    // Đầu nét đang vẽ: đốm sáng
+    if (progress < 1) {
+        const tip = pts[visible];
+        const g = ctx.createRadialGradient(tip.x, tip.y, 0, tip.x, tip.y, 22);
+        g.addColorStop(0, `hsla(320, 100%, 98%, ${alpha})`);
+        g.addColorStop(0.4, `hsla(305, 100%, 75%, ${0.6 * alpha})`);
+        g.addColorStop(1, `hsla(280, 100%, 65%, 0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(tip.x, tip.y, 22, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
 
 /* =====================================================
-   MAIN ANIMATION
+   LOOP
 ===================================================== */
+function loop() {
+    if (!state.running) return;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const now = performance.now();
+
+    /* --- GIAI ĐOẠN 1: DÂY TNT CHÁY --- */
+    if (state.phase === "burning") {
+        // Cập nhật tiến độ cháy
+        state.burnProgress += 0.017;
+        if (state.burnProgress >= 1) {
+            state.burnProgress = 1;
+            state.phase = "heart";
+            state.heartProgress = 0;
+            state.heartAlpha = 0;
+            state.heartDir = 1;
+            state.heartHold = 40;
+        }
+
+        /*
+           Tính điểm cháy trên nửa trái và nửa phải của trái tim.
+           Dùng cùng công thức heartPoint nhưng:
+             - Vệt trái: t từ π → 2π (điểm dưới → trái → lên đỉnh)
+             - Vệt phải: t từ π → 0  (điểm dưới → phải → lên đỉnh)
+           Cả 2 xuất phát từ t = π (đáy trái tim, dưới chữ T)
+           và gặp nhau ở t = 0/2π (đỉnh trái tim).
+        */
+        const steps = 220;
+        const halfPts = [];
+        for (let i = 0; i <= steps; i++) {
+            const t = Math.PI + (i / steps) * Math.PI;  // π → 2π
+            halfPts.push(heartPoint(t, heartScale));
+        }
+
+        // Vệt trái: chạy từ i=0 → cuối
+        const progL = state.burnProgress;
+        // Vệt phải: đối xứng, chạy từ i=0 → cuối (nhưng mirror x)
+        const progR = state.burnProgress;
+
+        // Tạo mảng điểm cho vệt trái
+        const ptsL = halfPts;
+        // Vệt phải: mirror x qua trục cx
+        const ptsR = halfPts.map(p => ({ x: 2 * cx - p.x, y: p.y }));
+
+        drawBurningRibbon(ptsL, progL, 330, 1);   // hồng
+        drawBurningRibbon(ptsR, progR, 275, 1);   // tím
+
+        // Lưu lại pts để giai đoạn heart dùng
+        state._ptsL = ptsL;
+        state._ptsR = ptsR;
+    }
+
+    /* --- GIAI ĐOẠN 2: TRÁI TIM FADE IN/OUT --- */
+    if (state.phase === "heart") {
+        // Vẽ lại 2 vệt cháy đã hoàn thành (mờ dần)
+        if (state._ptsL) {
+            drawBurningRibbon(state._ptsL, 1, 330, Math.max(0, 1 - state.heartProgress * 2));
+            drawBurningRibbon(state._ptsR, 1, 275, Math.max(0, 1 - state.heartProgress * 2));
+        }
+
+        // Tiến độ vẽ nét trái tim
+        if (state.heartProgress < 1) {
+            state.heartProgress = Math.min(1, state.heartProgress + 0.033);
+        }
+
+        // Alpha fade in/out
+        if (state.heartHold > 0) {
+            state.heartHold--;
+        } else {
+            if (state.heartDir === 1) {
+                state.heartAlpha = Math.min(1, state.heartAlpha + 0.012);
+                if (state.heartAlpha >= 1) {
+                    state.heartDir = -1;
+                    state.heartHold = 45;
+                }
+            } else {
+                state.heartAlpha = Math.max(0, state.heartAlpha - 0.010);
+                if (state.heartAlpha <= 0) {
+                    state.heartDir = 1;
+                    state.heartHold = 25;
+                }
+            }
+        }
+
+        // Vẽ nét trái tim hoàn chỉnh
+        const heartPts = [];
+        const steps = 300;
+        for (let i = 0; i <= steps; i++) {
+            const t = (i / steps) * Math.PI * 2;
+            heartPts.push(heartPoint(t, heartScale));
+        }
+        drawHeartOutline(heartPts, state.heartProgress, state.heartAlpha);
+    }
+
+    requestAnimationFrame(loop);
+}
+
+/* =====================================================
+   START
+===================================================== */
+const button = document.getElementById("start");
+const letter = document.getElementById("letter");
+let started = false;
 
 button.addEventListener("click", () => {
-
-    if (started)
-        return;
-
+    if (started) return;
     started = true;
-
-    /* BUTTON → T */
 
     button.classList.add("hide");
 
-
     setTimeout(() => {
-
         letter.classList.add("show");
-
     }, 500);
 
-
-    /* PREPARE RIBBONS */
-
-    preparePath(left);
-    preparePath(right);
-
-
-    /*
-        1.5 sec:
-        ribbons appear
-    */
-
+    // Đo lại layout sau khi chữ T hiện để scale trái tim cho vừa
     setTimeout(() => {
+        resizeCanvas();
+        state.running = true;
+        state.startTime = performance.now();
+        state.phase = "burning";
+        state.burnProgress = 0;
+        requestAnimationFrame(loop);
+    }, 900);
 
-        left.style.opacity = "1";
-        right.style.opacity = "1";
-
-        left.style.transition =
-            "stroke-dashoffset 2.8s cubic-bezier(.2,.8,.2,1)";
-
-        right.style.transition =
-            "stroke-dashoffset 2.8s cubic-bezier(.2,.8,.2,1)";
-
-
-        requestAnimationFrame(() => {
-
-            left.style.strokeDashoffset = "0";
-            right.style.strokeDashoffset = "0";
-
-        });
-
-    }, 1500);
-
-
-    /*
-        After ribbons fly:
-        show final heart.
-    */
-
-    setTimeout(() => {
-
-        heart.style.opacity = "1";
-
-        const length =
-            heart.getTotalLength();
-
-        heart.style.strokeDasharray =
-            length;
-
-        heart.style.strokeDashoffset =
-            length;
-
-        heart.style.transition =
-            "stroke-dashoffset 1.5s cubic-bezier(.2,.8,.2,1)";
-
-
-        requestAnimationFrame(() => {
-
-            heart.style.strokeDashoffset = "0";
-
-        });
-
-
-        letter.classList.add("float");
-
-        createParticles();
-
-    }, 4000);
-
-
-    /*
-        Hide ribbon paths after
-        the heart is established.
-    */
-
-    setTimeout(() => {
-
-        left.style.transition =
-            "opacity 1s";
-
-        right.style.transition =
-            "opacity 1s";
-
-        left.style.opacity = "0";
-        right.style.opacity = "0";
-
-        heart.classList.add("heartDone");
-
-    }, 5600);
-
+    window.addEventListener("resize", () => {
+        if (!state.running) return;
+        resizeCanvas();
+    });
 });
-
 </script>
 
 </body>
