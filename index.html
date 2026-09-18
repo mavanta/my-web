@@ -398,7 +398,7 @@ function loop() {
     /* --- GIAI ĐOẠN 1: DÂY TNT CHÁY --- */
     if (state.phase === "burning") {
         // Cập nhật tiến độ cháy
-        state.burnProgress += 0.017;
+        state.burnProgress += 0.008;
         if (state.burnProgress >= 1) {
             state.burnProgress = 1;
             state.phase = "heart";
