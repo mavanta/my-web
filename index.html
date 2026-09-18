@@ -1,40 +1,496 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web của tôi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T ♥</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
-            text-align: center;
-            padding-top: 100px;
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        background:
+            radial-gradient(circle at center, #15152b 0%, #070710 45%, #020205 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+
+    .scene {
+        position: relative;
+        width: min(90vw, 700px);
+        height: min(90vh, 700px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    #startButton {
+        position: absolute;
+        z-index: 10;
+
+        width: 190px;
+        height: 58px;
+
+        border: 1px solid rgba(150, 120, 255, .8);
+        border-radius: 999px;
+
+        background: rgba(70, 50, 150, .18);
+        color: white;
+
+        font-size: 18px;
+        letter-spacing: 1px;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 0 15px rgba(110, 70, 255, .5),
+            inset 0 0 20px rgba(120, 80, 255, .1);
+
+        transition:
+            width 1s ease,
+            height 1s ease,
+            border-radius 1s ease,
+            opacity .8s ease,
+            transform 1s ease;
+    }
+
+    #startButton:hover {
+        box-shadow:
+            0 0 25px rgba(120, 80, 255, .8),
+            inset 0 0 25px rgba(120, 80, 255, .15);
+    }
+
+    /* Nút biến thành T */
+
+    #startButton.morph {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+
+        font-size: 0;
+
+        background: transparent;
+        border-color: transparent;
+
+        box-shadow: none;
+
+        cursor: default;
+    }
+
+    #startButton.morph::before {
+        content: "T";
+
+        position: absolute;
+        inset: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 75px;
+        font-weight: bold;
+        line-height: 1;
+
+        color: white;
+
+        text-shadow:
+            0 0 5px white,
+            0 0 15px #7c5cff,
+            0 0 35px #6240ff,
+            0 0 60px #4b2cff;
+
+        animation: TGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes TGlow {
+        from {
+            filter: brightness(.9);
         }
 
-        button {
-            padding: 12px 25px;
-            border: 0;
-            border-radius: 10px;
-            cursor: pointer;
+        to {
+            filter: brightness(1.4);
         }
-    </style>
+    }
+
+    /* =========================
+       SVG
+    ========================= */
+
+    #heartSVG {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        overflow: visible;
+
+        pointer-events: none;
+    }
+
+    .ribbon {
+        fill: none;
+
+        stroke-width: 5;
+        stroke-linecap: round;
+
+        filter:
+            drop-shadow(0 0 5px currentColor)
+            drop-shadow(0 0 15px currentColor)
+            drop-shadow(0 0 30px currentColor);
+
+        opacity: 0;
+    }
+
+    .left {
+        color: #4e9cff;
+        stroke: #69b0ff;
+    }
+
+    .right {
+        color: #b66cff;
+        stroke: #d184ff;
+    }
+
+    /* =========================
+       BAY LÊN
+    ========================= */
+
+    .rising .left {
+        animation:
+            riseLeft 2.2s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .rising .right {
+        animation:
+            riseRight 2.2s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    @keyframes riseLeft {
+        0% {
+            opacity: 0;
+            transform: translateY(180px) scale(.7);
+        }
+
+        20% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes riseRight {
+        0% {
+            opacity: 0;
+            transform: translateY(180px) scale(.7);
+        }
+
+        20% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* =========================
+       HEART
+    ========================= */
+
+    .heartPath {
+        fill: none;
+
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+
+        opacity: 0;
+
+        filter:
+            drop-shadow(0 0 6px currentColor)
+            drop-shadow(0 0 15px currentColor)
+            drop-shadow(0 0 30px currentColor);
+    }
+
+    .heartLeft {
+        stroke: #55a8ff;
+        color: #55a8ff;
+    }
+
+    .heartRight {
+        stroke: #d16cff;
+        color: #d16cff;
+    }
+
+    .forming .heartPath {
+        opacity: 1;
+        animation: drawHeart 2.5s cubic-bezier(.65,0,.2,1) forwards;
+    }
+
+    @keyframes drawHeart {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    /* =========================
+       FINAL HEART
+    ========================= */
+
+    .finished .heartPath {
+        opacity: 1;
+        stroke-dashoffset: 0;
+
+        animation:
+            heartPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes heartPulse {
+        0%, 100% {
+            filter:
+                drop-shadow(0 0 5px currentColor)
+                drop-shadow(0 0 12px currentColor)
+                drop-shadow(0 0 25px currentColor);
+        }
+
+        50% {
+            filter:
+                drop-shadow(0 0 8px currentColor)
+                drop-shadow(0 0 25px currentColor)
+                drop-shadow(0 0 50px currentColor);
+        }
+    }
+
+    /* =========================
+       PARTICLES
+    ========================= */
+
+    .particles {
+        position: absolute;
+        inset: 0;
+
+        pointer-events: none;
+    }
+
+    .particle {
+        position: absolute;
+
+        width: 3px;
+        height: 3px;
+
+        border-radius: 50%;
+
+        background: white;
+
+        box-shadow:
+            0 0 5px white,
+            0 0 12px #8c6cff;
+
+        opacity: 0;
+    }
+
+    .finished .particle {
+        animation: floatParticle var(--duration)
+                   ease-in-out infinite;
+        animation-delay: var(--delay);
+    }
+
+    @keyframes floatParticle {
+        0%, 100% {
+            opacity: 0;
+            transform:
+                translate(0, 15px)
+                scale(.5);
+        }
+
+        50% {
+            opacity: .8;
+            transform:
+                translate(var(--x), -30px)
+                scale(1);
+        }
+    }
+
+    /* =========================
+       T GIỮA
+    ========================= */
+
+    .T-final {
+        position: absolute;
+
+        bottom: 23%;
+
+        font-size: 70px;
+        font-weight: bold;
+
+        color: white;
+
+        opacity: 0;
+
+        text-shadow:
+            0 0 5px white,
+            0 0 15px #7c5cff,
+            0 0 30px #6845ff;
+    }
+
+    .finished .T-final {
+        opacity: 1;
+        animation: TFinalGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes TFinalGlow {
+        from {
+            transform: scale(.97);
+            filter: brightness(.9);
+        }
+
+        to {
+            transform: scale(1.03);
+            filter: brightness(1.25);
+        }
+    }
+</style>
 </head>
 
 <body>
 
-    <h1>Hello bro 👋</h1>
-    <p>Web chạy bằng GitHub Pages.</p>
+<div class="scene" id="scene">
 
-    <button onclick="hello()">Bấm vào đây</button>
+    <button id="startButton">
+        Bấm vào
+    </button>
 
-    <script>
-        function hello() {
-            alert("Web hoạt động rồi 😎");
-        }
-    </script>
+    <!-- T cuối -->
+    <div class="T-final">T</div>
+
+    <!-- Các hạt sáng -->
+    <div class="particles">
+
+        <span class="particle"
+              style="left:20%;top:35%;--x:15px;--duration:3s;--delay:.2s"></span>
+
+        <span class="particle"
+              style="left:30%;top:55%;--x:-20px;--duration:4s;--delay:.8s"></span>
+
+        <span class="particle"
+              style="left:70%;top:40%;--x:20px;--duration:3.5s;--delay:.4s"></span>
+
+        <span class="particle"
+              style="left:80%;top:58%;--x:-15px;--duration:4.5s;--delay:1s"></span>
+
+        <span class="particle"
+              style="left:40%;top:25%;--x:10px;--duration:3.8s;--delay:1.5s"></span>
+
+        <span class="particle"
+              style="left:60%;top:28%;--x:-10px;--duration:4.2s;--delay:.6s"></span>
+
+    </div>
+
+
+    <svg id="heartSVG"
+         viewBox="0 0 700 700"
+         preserveAspectRatio="xMidYMid meet">
+
+        <!-- Hai dải ban đầu -->
+        <path
+            class="ribbon left"
+            d="
+            M350 470
+            C320 400 260 350 210 290
+            C170 240 145 205 160 165
+            "/>
+
+        <path
+            class="ribbon right"
+            d="
+            M350 470
+            C380 400 440 350 490 290
+            C530 240 555 205 540 165
+            "/>
+
+
+        <!-- Trái tim bên trái -->
+        <path
+            class="heartPath heartLeft"
+            d="
+            M350 520
+            C300 450 160 380 135 265
+            C110 150 240 105 350 225
+            "/>
+
+        <!-- Trái tim bên phải -->
+        <path
+            class="heartPath heartRight"
+            d="
+            M350 520
+            C400 450 540 380 565 265
+            C590 150 460 105 350 225
+            "/>
+
+    </svg>
+
+</div>
+
+
+<script>
+
+const button = document.getElementById("startButton");
+const scene = document.getElementById("scene");
+
+button.addEventListener("click", () => {
+
+    // Không cho click lại
+    button.disabled = true;
+
+    // 1. Nút biến thành T
+    button.classList.add("morph");
+
+    // 2. Sau khi T xuất hiện -> dải sáng bay lên
+    setTimeout(() => {
+        scene.classList.add("rising");
+    }, 900);
+
+
+    // 3. Sau khi dải bay -> bắt đầu vẽ trái tim
+    setTimeout(() => {
+        scene.classList.remove("rising");
+        scene.classList.add("forming");
+    }, 3000);
+
+
+    // 4. Hoàn thành trái tim
+    setTimeout(() => {
+        scene.classList.remove("forming");
+        scene.classList.add("finished");
+    }, 5600);
+
+});
+
+</script>
 
 </body>
 </html>
+```
