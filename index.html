@@ -1,496 +1,440 @@
-```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T ♥</title>
-
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    body {
-        background:
-            radial-gradient(circle at center, #15152b 0%, #070710 45%, #020205 100%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-
-    .scene {
-        position: relative;
-        width: min(90vw, 700px);
-        height: min(90vh, 700px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* =========================
-       BUTTON
-    ========================= */
-
-    #startButton {
-        position: absolute;
-        z-index: 10;
-
-        width: 190px;
-        height: 58px;
-
-        border: 1px solid rgba(150, 120, 255, .8);
-        border-radius: 999px;
-
-        background: rgba(70, 50, 150, .18);
-        color: white;
-
-        font-size: 18px;
-        letter-spacing: 1px;
-
-        cursor: pointer;
-
-        box-shadow:
-            0 0 15px rgba(110, 70, 255, .5),
-            inset 0 0 20px rgba(120, 80, 255, .1);
-
-        transition:
-            width 1s ease,
-            height 1s ease,
-            border-radius 1s ease,
-            opacity .8s ease,
-            transform 1s ease;
-    }
-
-    #startButton:hover {
-        box-shadow:
-            0 0 25px rgba(120, 80, 255, .8),
-            inset 0 0 25px rgba(120, 80, 255, .15);
-    }
-
-    /* Nút biến thành T */
-
-    #startButton.morph {
-        width: 70px;
-        height: 70px;
-        border-radius: 18px;
-
-        font-size: 0;
-
-        background: transparent;
-        border-color: transparent;
-
-        box-shadow: none;
-
-        cursor: default;
-    }
-
-    #startButton.morph::before {
-        content: "T";
-
-        position: absolute;
-        inset: 0;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        font-size: 75px;
-        font-weight: bold;
-        line-height: 1;
-
-        color: white;
-
-        text-shadow:
-            0 0 5px white,
-            0 0 15px #7c5cff,
-            0 0 35px #6240ff,
-            0 0 60px #4b2cff;
-
-        animation: TGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes TGlow {
-        from {
-            filter: brightness(.9);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đặc Biệt :></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        to {
-            filter: brightness(1.4);
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 20%, #1e1b3a, #0a0a1a 80%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            overflow: hidden;
+            position: relative;
         }
-    }
 
-    /* =========================
-       SVG
-    ========================= */
+        /* Background stars / particles */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: transparent;
+        }
 
-    #heartSVG {
-        position: absolute;
-        width: 100%;
-        height: 100%;
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 240, 250, 0.7);
+            box-shadow: 0 0 10px #ffb7e6, 0 0 20px #b28aff;
+            animation: twinkle 4s infinite ease-in-out;
+        }
 
-        overflow: visible;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
 
-        pointer-events: none;
-    }
+        /* MAIN STAGE */
+        .stage {
+            position: relative;
+            width: min(90vw, 90vh);
+            height: min(90vw, 90vh);
+            max-width: 700px;
+            max-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
 
-    .ribbon {
-        fill: none;
+        /* ---------- BUTTON ---------- */
+        .start-button {
+            position: absolute;
+            padding: 1.2rem 3.2rem;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #fff0f5;
+            background: rgba(255, 150, 200, 0.15);
+            border: 1.5px solid rgba(255, 180, 220, 0.7);
+            border-radius: 60px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 30px rgba(255, 120, 200, 0.3), 0 0 60px rgba(150, 100, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 30;
+            text-shadow: 0 0 10px rgba(255, 200, 230, 0.8);
+            font-family: inherit;
+            white-space: nowrap;
+            outline: none;
+        }
 
-        stroke-width: 5;
-        stroke-linecap: round;
+        .start-button:hover {
+            background: rgba(255, 150, 200, 0.3);
+            border-color: #ffb0d0;
+            box-shadow: 0 0 50px rgba(255, 120, 200, 0.6), 0 0 100px rgba(180, 120, 255, 0.4);
+            transform: scale(1.04);
+        }
 
-        filter:
-            drop-shadow(0 0 5px currentColor)
-            drop-shadow(0 0 15px currentColor)
-            drop-shadow(0 0 30px currentColor);
+        .start-button:active {
+            transform: scale(0.98);
+        }
 
-        opacity: 0;
-    }
+        /* Button transforms into T */
+        .start-button.transform-to-T {
+            animation: buttonToT 1.2s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+            pointer-events: none;
+        }
 
-    .left {
-        color: #4e9cff;
-        stroke: #69b0ff;
-    }
+        @keyframes buttonToT {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+                border-radius: 60px;
+                padding: 1.2rem 3.2rem;
+                font-size: clamp(1.2rem, 4vw, 1.8rem);
+                background: rgba(255, 150, 200, 0.15);
+                border-color: rgba(255, 180, 220, 0.7);
+                color: #fff0f5;
+            }
+            30% {
+                opacity: 0.8;
+                transform: scale(1.2);
+                border-radius: 50px;
+                background: rgba(255, 200, 230, 0.3);
+                border-color: #ffc0e0;
+                color: #fff5fc;
+            }
+            70% {
+                opacity: 0.6;
+                transform: scale(0.9);
+                border-radius: 20px;
+                background: rgba(255, 220, 240, 0.1);
+                border-color: #ffa0d0;
+                color: #ffe8f5;
+                padding: 0.6rem 1.8rem;
+                font-size: clamp(1.5rem, 5vw, 2.2rem);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+                border-radius: 50%;
+                background: transparent;
+                border-color: transparent;
+                color: transparent;
+                padding: 0;
+                font-size: 0;
+            }
+        }
 
-    .right {
-        color: #b66cff;
-        stroke: #d184ff;
-    }
-
-    /* =========================
-       BAY LÊN
-    ========================= */
-
-    .rising .left {
-        animation:
-            riseLeft 2.2s cubic-bezier(.2,.8,.2,1) forwards;
-    }
-
-    .rising .right {
-        animation:
-            riseRight 2.2s cubic-bezier(.2,.8,.2,1) forwards;
-    }
-
-    @keyframes riseLeft {
-        0% {
+        /* ---------- BIG LETTER T ---------- */
+        .big-T {
+            position: absolute;
+            font-size: clamp(8rem, 30vw, 16rem);
+            font-weight: 300;
+            color: #ffeef8;
+            text-shadow: 0 0 20px #ffb0d0, 0 0 60px #b88aff, 0 0 100px #7a4aff;
+            z-index: 25;
             opacity: 0;
-            transform: translateY(180px) scale(.7);
+            transform: scale(0.6);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.3, 0.64, 1);
+            pointer-events: none;
+            line-height: 1;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            letter-spacing: 0;
         }
 
-        20% {
+        .big-T.visible {
             opacity: 1;
+            transform: scale(1);
         }
 
-        100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+        /* ---------- HEART / WINGS SVG ---------- */
+        .heart-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: visible;
+            pointer-events: none;
+            z-index: 20;
         }
-    }
 
-    @keyframes riseRight {
-        0% {
+        .wing-path {
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
             opacity: 0;
-            transform: translateY(180px) scale(.7);
+            transition: opacity 0.6s ease;
         }
 
-        20% {
+        /* Kích hoạt vẽ */
+        .wing-path.draw {
             opacity: 1;
         }
 
-        100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-
-    /* =========================
-       HEART
-    ========================= */
-
-    .heartPath {
-        fill: none;
-
-        stroke-width: 6;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-
-        opacity: 0;
-
-        filter:
-            drop-shadow(0 0 6px currentColor)
-            drop-shadow(0 0 15px currentColor)
-            drop-shadow(0 0 30px currentColor);
-    }
-
-    .heartLeft {
-        stroke: #55a8ff;
-        color: #55a8ff;
-    }
-
-    .heartRight {
-        stroke: #d16cff;
-        color: #d16cff;
-    }
-
-    .forming .heartPath {
-        opacity: 1;
-        animation: drawHeart 2.5s cubic-bezier(.65,0,.2,1) forwards;
-    }
-
-    @keyframes drawHeart {
-        to {
-            stroke-dashoffset: 0;
-        }
-    }
-
-    /* =========================
-       FINAL HEART
-    ========================= */
-
-    .finished .heartPath {
-        opacity: 1;
-        stroke-dashoffset: 0;
-
-        animation:
-            heartPulse 2.2s ease-in-out infinite;
-    }
-
-    @keyframes heartPulse {
-        0%, 100% {
-            filter:
-                drop-shadow(0 0 5px currentColor)
-                drop-shadow(0 0 12px currentColor)
-                drop-shadow(0 0 25px currentColor);
+        /* Left and right path styles */
+        .wing-left {
+            stroke: #ff90c0;
+            stroke-width: 6;
+            filter: drop-shadow(0 0 12px #ff60b0) drop-shadow(0 0 28px #b060ff);
         }
 
-        50% {
-            filter:
-                drop-shadow(0 0 8px currentColor)
-                drop-shadow(0 0 25px currentColor)
-                drop-shadow(0 0 50px currentColor);
+        .wing-right {
+            stroke: #b090ff;
+            stroke-width: 6;
+            filter: drop-shadow(0 0 12px #a060ff) drop-shadow(0 0 28px #ff80c0);
         }
-    }
 
-    /* =========================
-       PARTICLES
-    ========================= */
+        /* Idle heart pulse & glow */
+        .heart-group {
+            animation: heartGlowPulse 3s infinite alternate ease-in-out;
+        }
 
-    .particles {
-        position: absolute;
-        inset: 0;
+        @keyframes heartGlowPulse {
+            0% { filter: drop-shadow(0 0 6px #ff80b0) drop-shadow(0 0 18px #a060ff); }
+            100% { filter: drop-shadow(0 0 18px #ff60a0) drop-shadow(0 0 36px #c080ff); }
+        }
 
-        pointer-events: none;
-    }
+        /* Sparkles container */
+        .sparkles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 26;
+            overflow: visible;
+        }
 
-    .particle {
-        position: absolute;
-
-        width: 3px;
-        height: 3px;
-
-        border-radius: 50%;
-
-        background: white;
-
-        box-shadow:
-            0 0 5px white,
-            0 0 12px #8c6cff;
-
-        opacity: 0;
-    }
-
-    .finished .particle {
-        animation: floatParticle var(--duration)
-                   ease-in-out infinite;
-        animation-delay: var(--delay);
-    }
-
-    @keyframes floatParticle {
-        0%, 100% {
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fff5fc;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #ffb0e0, 0 0 24px #b080ff;
+            animation: sparkleFloat 2.5s infinite ease-in-out;
             opacity: 0;
-            transform:
-                translate(0, 15px)
-                scale(.5);
         }
 
-        50% {
-            opacity: .8;
-            transform:
-                translate(var(--x), -30px)
-                scale(1);
-        }
-    }
-
-    /* =========================
-       T GIỮA
-    ========================= */
-
-    .T-final {
-        position: absolute;
-
-        bottom: 23%;
-
-        font-size: 70px;
-        font-weight: bold;
-
-        color: white;
-
-        opacity: 0;
-
-        text-shadow:
-            0 0 5px white,
-            0 0 15px #7c5cff,
-            0 0 30px #6845ff;
-    }
-
-    .finished .T-final {
-        opacity: 1;
-        animation: TFinalGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes TFinalGlow {
-        from {
-            transform: scale(.97);
-            filter: brightness(.9);
+        @keyframes sparkleFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            30% { opacity: 1; transform: translateY(-20px) scale(1.2); }
+            70% { opacity: 0.8; transform: translateY(-40px) scale(0.9); }
+            100% { opacity: 0; transform: translateY(-60px) scale(0.4); }
         }
 
-        to {
-            transform: scale(1.03);
-            filter: brightness(1.25);
+        /* Floating T effect (idle) */
+        .big-T.idle-float {
+            animation: floatT 4s infinite alternate ease-in-out;
         }
-    }
-</style>
+
+        @keyframes floatT {
+            0% { transform: scale(1) translateY(0); }
+            100% { transform: scale(1.02) translateY(-8px); }
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 480px) {
+            .start-button {
+                padding: 1rem 2.2rem;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            .big-T {
+                font-size: clamp(6rem, 28vw, 10rem);
+            }
+            .wing-left, .wing-right {
+                stroke-width: 5;
+            }
+        }
+
+        /* Hide on complete */
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="scene" id="scene">
+    <!-- Background stars -->
+    <div class="stars" id="stars"></div>
 
-    <button id="startButton">
-        Bấm vào
-    </button>
+    <!-- Main stage -->
+    <div class="stage" id="stage">
+        <!-- Nút bấm -->
+        <button class="start-button" id="startBtn">Bấm vào đây</button>
 
-    <!-- T cuối -->
-    <div class="T-final">T</div>
+        <!-- Chữ T lớn -->
+        <div class="big-T" id="bigT">T</div>
 
-    <!-- Các hạt sáng -->
-    <div class="particles">
+        <!-- SVG: hai dải cánh tạo hình trái tim -->
+        <svg class="heart-svg" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet">
+            <g class="heart-group">
+                <!-- Left wing path: starts below T, curves out and up to heart left lobe -->
+                <path class="wing-path wing-left" id="wingLeft" d="
+                    M 350 480
+                    C 270 480, 190 430, 160 360
+                    C 130 290, 150 210, 210 160
+                    C 270 110, 320 140, 350 190
+                " />
+                <!-- Right wing path: mirrored, starts below T -->
+                <path class="wing-path wing-right" id="wingRight" d="
+                    M 350 480
+                    C 430 480, 510 430, 540 360
+                    C 570 290, 550 210, 490 160
+                    C 430 110, 380 140, 350 190
+                " />
+            </g>
+        </svg>
 
-        <span class="particle"
-              style="left:20%;top:35%;--x:15px;--duration:3s;--delay:.2s"></span>
-
-        <span class="particle"
-              style="left:30%;top:55%;--x:-20px;--duration:4s;--delay:.8s"></span>
-
-        <span class="particle"
-              style="left:70%;top:40%;--x:20px;--duration:3.5s;--delay:.4s"></span>
-
-        <span class="particle"
-              style="left:80%;top:58%;--x:-15px;--duration:4.5s;--delay:1s"></span>
-
-        <span class="particle"
-              style="left:40%;top:25%;--x:10px;--duration:3.8s;--delay:1.5s"></span>
-
-        <span class="particle"
-              style="left:60%;top:28%;--x:-10px;--duration:4.2s;--delay:.6s"></span>
-
+        <!-- Sparkles container -->
+        <div class="sparkles" id="sparkles"></div>
     </div>
 
+    <script>
+        (function() {
+            // ---- Tạo background stars ----
+            const starsContainer = document.getElementById('stars');
+            const starCount = 80;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 4 + 1.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.opacity = Math.random() * 0.6 + 0.2;
+                starsContainer.appendChild(star);
+            }
 
-    <svg id="heartSVG"
-         viewBox="0 0 700 700"
-         preserveAspectRatio="xMidYMid meet">
+            // ---- Lấy các phần tử ----
+            const startBtn = document.getElementById('startBtn');
+            const bigT = document.getElementById('bigT');
+            const wingLeft = document.getElementById('wingLeft');
+            const wingRight = document.getElementById('wingRight');
+            const sparklesContainer = document.getElementById('sparkles');
+            const stage = document.getElementById('stage');
 
-        <!-- Hai dải ban đầu -->
-        <path
-            class="ribbon left"
-            d="
-            M350 470
-            C320 400 260 350 210 290
-            C170 240 145 205 160 165
-            "/>
+            // ---- Biến trạng thái ----
+            let animationStarted = false;
 
-        <path
-            class="ribbon right"
-            d="
-            M350 470
-            C380 400 440 350 490 290
-            C530 240 555 205 540 165
-            "/>
+            // ---- Hàm tạo sparkles ngẫu nhiên xung quanh tim ----
+            function createSparkles() {
+                // Xóa sparkles cũ nếu có
+                sparklesContainer.innerHTML = '';
+                const sparkleCount = 18;
+                const centerX = 350; // trong viewBox SVG 700x700
+                const centerY = 350;
+                // Tạo tọa độ tương đối dựa trên stage thực tế
+                for (let i = 0; i < sparkleCount; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    // Vị trí ngẫu nhiên quanh khu vực trái tim (bán kính 180-260)
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = 150 + Math.random() * 110;
+                    const x = 50 + (Math.cos(angle) * radius) / 700 * 100; // phần trăm so với stage
+                    const y = 50 + (Math.sin(angle) * radius) / 700 * 100;
+                    sparkle.style.left = x + '%';
+                    sparkle.style.top = y + '%';
+                    sparkle.style.animationDelay = (Math.random() * 2) + 's';
+                    sparkle.style.animationDuration = (1.8 + Math.random() * 2) + 's';
+                    sparkle.style.width = (Math.random() * 6 + 3) + 'px';
+                    sparkle.style.height = sparkle.style.width;
+                    sparklesContainer.appendChild(sparkle);
+                }
+            }
 
+            // ---- Hàm chạy animation chính ----
+            function startAnimation() {
+                if (animationStarted) return;
+                animationStarted = true;
 
-        <!-- Trái tim bên trái -->
-        <path
-            class="heartPath heartLeft"
-            d="
-            M350 520
-            C300 450 160 380 135 265
-            C110 150 240 105 350 225
-            "/>
+                // 1. Nút biến đổi thành T (animation)
+                startBtn.classList.add('transform-to-T');
 
-        <!-- Trái tim bên phải -->
-        <path
-            class="heartPath heartRight"
-            d="
-            M350 520
-            C400 450 540 380 565 265
-            C590 150 460 105 350 225
-            "/>
+                // 2. Sau khi nút mờ đi (khoảng 0.6s), hiện chữ T
+                setTimeout(() => {
+                    bigT.classList.add('visible');
+                }, 500);
 
-    </svg>
+                // 3. Sau khi chữ T hiện lên ổn định (khoảng 1.2s), bắt đầu vẽ hai cánh
+                setTimeout(() => {
+                    // Hiện paths (opacity)
+                    wingLeft.classList.add('draw');
+                    wingRight.classList.add('draw');
 
-</div>
+                    // Kích thước path length để animate stroke-dashoffset
+                    const leftLength = wingLeft.getTotalLength();
+                    const rightLength = wingRight.getTotalLength();
 
+                    // Set dash array & offset ban đầu: ẩn hoàn toàn
+                    wingLeft.style.strokeDasharray = leftLength;
+                    wingLeft.style.strokeDashoffset = leftLength;
+                    wingRight.style.strokeDasharray = rightLength;
+                    wingRight.style.strokeDashoffset = rightLength;
 
-<script>
+                    // Force reflow
+                    wingLeft.getBoundingClientRect();
+                    wingRight.getBoundingClientRect();
 
-const button = document.getElementById("startButton");
-const scene = document.getElementById("scene");
+                    // Animation: vẽ đường với transition mượt
+                    wingLeft.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(0.45, 0.05, 0.2, 1)';
+                    wingRight.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(0.45, 0.05, 0.2, 1)';
 
-button.addEventListener("click", () => {
+                    // Bắt đầu vẽ (dashoffset về 0)
+                    requestAnimationFrame(() => {
+                        wingLeft.style.strokeDashoffset = '0';
+                        wingRight.style.strokeDashoffset = '0';
+                    });
 
-    // Không cho click lại
-    button.disabled = true;
+                    // 4. Tạo sparkles sau khi cánh vẽ xong một chút (sau 1.5s)
+                    setTimeout(() => {
+                        createSparkles();
+                    }, 1500);
 
-    // 1. Nút biến thành T
-    button.classList.add("morph");
+                    // 5. Sau khi vẽ xong (2.2s), thêm idle float cho T
+                    setTimeout(() => {
+                        bigT.classList.add('idle-float');
+                        // Thêm pulse cho heart group (đã có sẵn animation)
+                    }, 2200);
 
-    // 2. Sau khi T xuất hiện -> dải sáng bay lên
-    setTimeout(() => {
-        scene.classList.add("rising");
-    }, 900);
+                }, 1400); // thời điểm bắt đầu vẽ cánh
+            }
 
+            // Gắn sự kiện click
+            startBtn.addEventListener('click', startAnimation);
 
-    // 3. Sau khi dải bay -> bắt đầu vẽ trái tim
-    setTimeout(() => {
-        scene.classList.remove("rising");
-        scene.classList.add("forming");
-    }, 3000);
+            // Dự phòng: nếu sparkles bị trống, tạo sau 4s (để chắc chắn)
+            setTimeout(() => {
+                if (sparklesContainer.children.length === 0 && animationStarted) {
+                    createSparkles();
+                }
+            }, 6000);
 
+            // Đảm bảo nếu click lần nữa không làm gì
+            startBtn.addEventListener('click', (e) => e.preventDefault());
 
-    // 4. Hoàn thành trái tim
-    setTimeout(() => {
-        scene.classList.remove("forming");
-        scene.classList.add("finished");
-    }, 5600);
+            // Xử lý responsive: khi resize, không cần làm gì thêm vì SVG scale theo stage.
 
-});
-
-</script>
-
+            // Tinh chỉnh nhỏ: căn giữa chữ T và svg theo stage
+            // (đã dùng absolute + flex, nhưng svg phủ toàn stage)
+            // Đảm bảo stage có kích thước phù hợp.
+        })();
+    </script>
 </body>
 </html>
-```
